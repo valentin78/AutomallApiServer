@@ -328,3 +328,9 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+AutomallApiServer/App_Data/Logs/
+
+AutomallApiServer/App_Data/NuGetBackup/
+
+AutomallApiServer/App_Data/TEMP/
