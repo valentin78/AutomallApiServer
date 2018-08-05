@@ -8,11 +8,20 @@ namespace AutomallApiServer.Controllers
     public class AuthDemoController : UmbracoApiController
     {
         [HttpGet]
-        [Authorize]
+        [Route("Hello")]
+        [Authorize(Roles = "Role1")]
         public string Hello(string say)
         {
             var user = Members.GetCurrentMember()?.Name;
             return $"User {user} say: {say}";
+        }
+
+        [HttpGet]
+        [Route("Crap")]
+        [Authorize(Roles = "Role2")]
+        public string Crap()
+        {
+            return "no matter";
         }
     }
 }

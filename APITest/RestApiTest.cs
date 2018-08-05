@@ -43,11 +43,19 @@ namespace APITest
 
             Assert.AreEqual(result, "User TestUser say: hello gays!");
 
-            // 401
+            // 401 (no token)
             var badResponce = await RestBaseUrl
                 .AppendPathSegment("Umbraco/Api/AuthDemo/Hello")
                 .AllowHttpStatus("401")
                 .SetQueryParams(new { say = "hello gays!" })
+                .GetAsync();
+            Assert.AreEqual(badResponce.StatusCode, HttpStatusCode.Unauthorized);
+
+            // 401 (role based)
+            badResponce = await RestBaseUrl
+                .AppendPathSegment("Umbraco/Api/AuthDemo/Crap")
+                .WithOAuthBearerToken(token)
+                .AllowHttpStatus("401")
                 .GetAsync();
             Assert.AreEqual(badResponce.StatusCode, HttpStatusCode.Unauthorized);
         }
