@@ -285,6 +285,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\SecurityHelper.cs" />
+    <Compile Include="Models\AuthenticationToken.cs" />
     <Compile Include="Models\SystemRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebServices\WebService.asmx.cs">

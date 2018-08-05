@@ -1,4 +1,5 @@
 ﻿using System.Security;
+using System.Security.Claims;
 using System.Web.Services;
 using AutomallApiServer.Core;
 using AutomallApiServer.Models;
@@ -11,16 +12,9 @@ namespace AutomallApiServer.WebServices
     public class WebService : System.Web.Services.WebService
     {
         [WebMethod]
-        public string Hello(string userName, string password)
+        public string Hello(AuthenticationToken token)
         {
-            var accessDenied = !SecurityHelper.Authenticate(userName, password);
-            if (accessDenied) throw new SecurityException();
-
-            var userInRole1 = SecurityHelper.IsUserInRole(userName, SystemRoles.Role1);
-            if (!userInRole1) throw new SecurityException();
-
-            var user = SecurityHelper.GetUserByName(userName);
-            
+            var user = SecurityHelper.Authorize(token, new [] { SystemRoles.Role1 });
             return user.Name;
         }
     }

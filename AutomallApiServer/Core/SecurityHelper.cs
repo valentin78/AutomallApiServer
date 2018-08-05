@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Web.Security;
 using AutomallApiServer.Models;
 using Umbraco.Core;
@@ -10,9 +11,16 @@ namespace AutomallApiServer.Core
 {
     public class SecurityHelper
     {
-        public static bool Authenticate(string userName, string password) {
+        public static IMember Authorize(AuthenticationToken token, SystemRoles[] allowedRoles)
+        {
+            if (!Authenticate(token)) throw new SecurityException();
+            if (!allowedRoles.Any(role => IsUserInRole(token.UserName, role))) throw new SecurityException();
+            return GetUserByName(token.UserName);
+        }
+
+        public static bool Authenticate(AuthenticationToken token) {
             var memberShipHelper = new MembershipHelper(Umbraco.Web.UmbracoContext.Current);
-            return memberShipHelper.Login(userName, password);
+            return memberShipHelper.Login(token.UserName, token.Password);
         }
 
         public static bool IsUserInRole(string userName, SystemRoles role)
