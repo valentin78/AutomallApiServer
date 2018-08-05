@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace APITest
 {
     [TestClass]
-    public class UnitTest1
+    public class SoapServiceTest
     {
         [TestMethod]
         public void TestMethod1()
@@ -17,7 +17,7 @@ namespace APITest
                 Password = "Qwerty12345"
             });
 
-            Assert.Equals(result, "TestUser");
+            Assert.AreEqual(result, "TestUser");
         }
     }
 }
