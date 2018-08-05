@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using APITest.Properties;
 using Flurl;
@@ -11,13 +12,21 @@ namespace APITest
     [TestClass]
     public class RestApiTest
     {
+        private static string RestBaseUrl
+        {
+            get
+            {
+                var webServiceUri = new Uri(Settings.Default.APITest_LegacyServiceReference_WebService);
+                var restBaseUrl = $"{webServiceUri.Scheme}://{webServiceUri.Authority}";
+                return restBaseUrl;
+            }
+        }
+
         [TestMethod]
         public async Task TestMethod1()
         {
-            var webServiceUri = new Uri(Settings.Default.APITest_LegacyServiceReference_WebService);
-            var restBaseUrl = $"{webServiceUri.Scheme}://{webServiceUri.Authority}";
-
-            dynamic badResult = await restBaseUrl
+            // 5xx
+            var badResponce = await RestBaseUrl
                 .AppendPathSegment("Umbraco/Api/Demo/Hello")
                 .AllowHttpStatus("5xx")
                 .PostJsonAsync(new
@@ -29,12 +38,12 @@ namespace APITest
                     },
 
                     Say = "no matters"
-                }).ReceiveJson();
+                });
 
-            Assert.AreEqual(badResult.ExceptionMessage, "Security error.");
+            Assert.AreEqual(badResponce.StatusCode, HttpStatusCode.InternalServerError);
 
-
-            var result = await restBaseUrl
+            // 200
+            var result = await RestBaseUrl
                 .AppendPathSegment("Umbraco/Api/Demo/Hello")
                 .PostJsonAsync(new
                 {
@@ -48,6 +57,36 @@ namespace APITest
                 .ReceiveJson<string>();
 
             Assert.AreEqual(result, "User TestUser say: hello gays!");
+        }
+
+        [TestMethod]
+        public async Task TestMethod2()
+        {
+            // token
+            dynamic auth = await RestBaseUrl
+                .AppendPathSegment("oauth/token")
+                .WithHeader("Content-Type", "application/x-www-form-urlencoded")
+                .PostAsync(new StringContent("grant_type=password&username=test&password=Qwerty12345"))
+                .ReceiveJson();
+
+            var token = (string)auth.access_token;
+
+            // 200
+            var result = await RestBaseUrl
+                .AppendPathSegment("Umbraco/Api/AuthDemo/Hello")
+                .SetQueryParams(new { say = "hello gays!" })
+                .WithOAuthBearerToken(token)
+                .GetJsonAsync<string>();
+
+            Assert.AreEqual(result, "User TestUser say: hello gays!");
+
+            // 401
+            var badResponce = await RestBaseUrl
+                .AppendPathSegment("Umbraco/Api/AuthDemo/Hello")
+                .AllowHttpStatus("401")
+                .SetQueryParams(new {say = "hello gays!"})
+                .GetAsync();
+            Assert.AreEqual(badResponce.StatusCode, HttpStatusCode.Unauthorized);
         }
     }
 }

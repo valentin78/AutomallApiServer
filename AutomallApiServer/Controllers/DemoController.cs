@@ -13,8 +13,6 @@ namespace AutomallApiServer.Controllers
             var user = SecurityHelper.Authorize(model.Token, new[] { SystemRoles.Role1 });
             return $"User {user.Name} say: {model.Say}";
         }
-
-
     }
 
     public class HelloModel
