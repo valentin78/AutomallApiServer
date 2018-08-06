@@ -68,6 +68,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="OkiTokiApiTest.cs" />
     <Compile Include="RestApiTest.cs" />
     <Compile Include="SoapServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
