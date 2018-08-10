@@ -12,13 +12,13 @@ namespace APITest
     [TestClass]
     public class OkiTokiApiTest
     {
-        private static string RestBaseUrl
+        private static string ApiBaseUrl
         {
             get
             {
                 var webServiceUri = new Uri(Settings.Default.APITest_LegacyServiceReference_WebService);
                 var restBaseUrl = $"{webServiceUri.Scheme}://{webServiceUri.Authority}";
-                return restBaseUrl;
+                return restBaseUrl.AppendPathSegment("Umbraco/Api");
             }
         }
 
@@ -26,8 +26,8 @@ namespace APITest
         public async Task GetGroup()
         {
             // 200
-            var rest = RestBaseUrl
-                .AppendPathSegment("Umbraco/Api/OkiToki/RingGroup")
+            var rest = ApiBaseUrl
+                .AppendPathSegment("OkiToki/RingGroup")
                 .SetQueryParam("UserName", "test")
                 .SetQueryParam("Password", "Qwerty12345")
                 .SetQueryParam("Say", "hello gays!");
@@ -41,8 +41,8 @@ namespace APITest
         public async Task BasicAuth()
         {
             // 200
-            var result = await RestBaseUrl
-                .AppendPathSegment("Umbraco/Api/Okitoki/Hello")
+            var result = await ApiBaseUrl
+                .AppendPathSegment("Okitoki/Hello")
                 .PostJsonAsync(new
                 {
                     Token = new
