@@ -5,5 +5,8 @@
     <Setting Name="APITest_LegacyServiceReference_WebService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://localhost:63840/WebServices/WebService.asmx</Value>
     </Setting>
+    <Setting Name="APITest_Eurogarage_Eurogarage" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:63840/WebServices/Eurogarage.asmx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

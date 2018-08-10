@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>true</IncludeIisSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -184,6 +185,7 @@
       <HintPath>..\packages\System.Reflection.Metadata.1.0.21\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
@@ -293,17 +295,28 @@
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
+    <Content Include="WebServices\Eurogarage.asmx" />
     <Content Include="WebServices\WebService.asmx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AuthDemoController.cs" />
+    <Compile Include="Controllers\EurogarageController.cs" />
     <Compile Include="Controllers\OkiTokiController.cs" />
     <Compile Include="Controllers\DemoController.cs" />
+    <Compile Include="Core\BasicAuthenticationAttribute.cs" />
     <Compile Include="Core\Bootstrap.cs" />
+    <Compile Include="Core\Contexts\ResultModels\vsWareInfo.cs" />
     <Compile Include="Core\SecurityHelper.cs" />
+    <Compile Include="Core\Contexts\CubeContext.cs" />
     <Compile Include="Models\AuthenticationToken.cs" />
+    <Compile Include="Models\Cube\ps_GetRingGroupByCallerIDResult.cs" />
+    <Compile Include="Models\Eurogarage\NomenclatureElement.cs" />
     <Compile Include="Models\SystemRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebServices\Eurogarage.asmx.cs">
+      <DependentUpon>Eurogarage.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WebServices\WebService.asmx.cs">
       <DependentUpon>WebService.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -345,6 +358,7 @@
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap2-Fluid.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

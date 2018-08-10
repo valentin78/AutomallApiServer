@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Nomenclature">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="tns:AuthenticationToken" />
+            <s:element minOccurs="0" maxOccurs="1" name="number" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AuthenticationToken">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="NomenclatureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NomenclatureResult" type="tns:ArrayOfNomenclatureElement" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfNomenclatureElement">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NomenclatureElement" nillable="true" type="tns:NomenclatureElement" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NomenclatureElement">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="WareId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="WareNum" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="WareName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UnitName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Brand" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="NomenclatureSoapIn">
+    <wsdl:part name="parameters" element="tns:Nomenclature" />
+  </wsdl:message>
+  <wsdl:message name="NomenclatureSoapOut">
+    <wsdl:part name="parameters" element="tns:NomenclatureResponse" />
+  </wsdl:message>
+  <wsdl:portType name="EurogarageSoap">
+    <wsdl:operation name="Nomenclature">
+      <wsdl:input message="tns:NomenclatureSoapIn" />
+      <wsdl:output message="tns:NomenclatureSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EurogarageSoap" type="tns:EurogarageSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Nomenclature">
+      <soap:operation soapAction="http://tempuri.org/Nomenclature" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="EurogarageSoap12" type="tns:EurogarageSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Nomenclature">
+      <soap12:operation soapAction="http://tempuri.org/Nomenclature" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Eurogarage">
+    <wsdl:port name="EurogarageSoap" binding="tns:EurogarageSoap">
+      <soap:address location="http://localhost:63840/WebServices/Eurogarage.asmx" />
+    </wsdl:port>
+    <wsdl:port name="EurogarageSoap12" binding="tns:EurogarageSoap12">
+      <soap12:address location="http://localhost:63840/WebServices/Eurogarage.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

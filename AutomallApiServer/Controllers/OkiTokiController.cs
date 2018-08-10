@@ -1,6 +1,10 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Results;
+
 using AutomallApiServer.Core;
+using AutomallApiServer.Core.Contexts;
 using AutomallApiServer.Models;
+using AutomallApiServer.Models.Cube;
 using Umbraco.Web.WebApi;
 
 namespace AutomallApiServer.Controllers
@@ -8,17 +12,22 @@ namespace AutomallApiServer.Controllers
     public class OkitokiController : UmbracoApiController
     {
         [HttpGet]
-        public string RingGroup(GetRingGroupParamsModel model)
+        public JsonResult<ps_GetRingGroupByCallerIDResult> RingGroup(string userName, string password, string say)
         {
-            var user = SecurityHelper.Authorize(model, new[] { SystemRoles.Role1 });
-            return $"User {user.Name} say: {model.Say}";
-        }
+            var model = new GetRingGroupParamsModel
+            {
+                UserName = userName,
+                Password = password,
+                Say = say
+            };
+            var user = SecurityHelper.Authorize(model, new[] { SystemRoles.OkiToki });
 
-        [HttpPost]
-        public string Hello([FromBody]HelloModel model)
-        {
-            var user = SecurityHelper.Authorize(model.Token, new[] { SystemRoles.Role1 });
-            return $"User {user.Name} say: {model.Say}";
+            using (var ctx = new CubeContext())
+            {
+                var r = ctx.GetRingGroupByCallerId(user.Name);
+                return Json(r);
+                //return r.RingGroup;
+            }
         }
     }
 

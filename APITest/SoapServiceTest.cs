@@ -1,5 +1,5 @@
 ﻿using System;
-using APITest.LegacyServiceReference;
+using APITest.Eurogarage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace APITest
@@ -10,14 +10,14 @@ namespace APITest
         [TestMethod]
         public void TestMethod1()
         {
-            var srv = new WebService();
-            var result = srv.Hello(new AuthenticationToken()
+            var srv = new Eurogarage.Eurogarage();
+            var result = srv.Nomenclature(new AuthenticationToken
             {
-                UserName = "test",
+                UserName = "1CTest",
                 Password = "Qwerty12345"
-            });
+            }, "gdb199");
 
-            Assert.AreEqual(result, "TestUser");
+            Assert.AreNotEqual(result.Length, 0);
         }
     }
 }

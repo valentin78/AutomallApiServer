@@ -3,6 +3,7 @@
     public enum SystemRoles: byte
     {
         OkiToki,
+        Eurogarage,
         Role1,
         Role2
     }

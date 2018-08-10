@@ -1,6 +1,4 @@
-﻿using System.Security;
-using System.Security.Claims;
-using System.Web.Services;
+﻿using System.Web.Services;
 using AutomallApiServer.Core;
 using AutomallApiServer.Models;
 
