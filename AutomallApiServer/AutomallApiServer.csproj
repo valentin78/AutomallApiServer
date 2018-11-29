@@ -16,7 +16,7 @@
     <RootNamespace>AutomallApiServer</RootNamespace>
     <AssemblyName>AutomallApiServer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -294,7 +294,9 @@
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="WebServices\Eurogarage.asmx" />
     <Content Include="WebServices\WebService.asmx" />
   </ItemGroup>
@@ -305,12 +307,18 @@
     <Compile Include="Controllers\DemoController.cs" />
     <Compile Include="Core\BasicAuthenticationAttribute.cs" />
     <Compile Include="Core\Bootstrap.cs" />
+    <Compile Include="Core\Contexts\AutomallContext.cs" />
+    <Compile Include="Core\Contexts\AutomallModels\vsClientPresenter.cs" />
+    <Compile Include="Core\Contexts\AutomallModels\vsUser.cs" />
+    <Compile Include="Core\Contexts\ResultModels\vsClientsListItem.cs" />
     <Compile Include="Core\Contexts\ResultModels\vsWareInfo.cs" />
     <Compile Include="Core\SecurityHelper.cs" />
     <Compile Include="Core\Contexts\CubeContext.cs" />
     <Compile Include="Models\AuthenticationToken.cs" />
     <Compile Include="Models\Cube\ps_GetRingGroupByCallerIDResult.cs" />
+    <Compile Include="Models\Eurogarage\Kag.cs" />
     <Compile Include="Models\Eurogarage\NomenclatureElement.cs" />
+    <Compile Include="Models\Eurogarage\Order.cs" />
     <Compile Include="Models\SystemRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebServices\Eurogarage.asmx.cs">
@@ -373,6 +381,16 @@
   <ItemGroup>
     <Folder Include="Models\OkiToki\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\WebmallGit\ValmiStore.Model.Cube\ValmiStore.Model.Cube.csproj">
+      <Project>{2b83d3fc-b291-4356-bd05-7f69c5f878ad}</Project>
+      <Name>ValmiStore.Model.Cube</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WebmallGit\ValmiStore.Model\ValmiStore.Model.csproj">
+      <Project>{b8938641-3d4c-466a-845d-7d96a4073720}</Project>
+      <Name>ValmiStore.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -388,7 +406,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63840</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63840/</IISUrl>
+          <IISUrl>http://localhost/AutomallApiServer</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

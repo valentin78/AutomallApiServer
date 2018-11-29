@@ -30,7 +30,7 @@ namespace AutomallApiServer.Core.Contexts.ResultModels
         //public string ActionInfo { get; set; }
         //// ReSharper disable once InconsistentNaming
         //public bool IsOEM { get; set; }
-        //public decimal? PriceOut { get; set; }
+        public decimal? PriceOut { get; set; }
         //public decimal? WareQntTotal { get; set; }
         //public bool ShowOffer { get; set; }
         //public int? WarePictureId { get; set; }

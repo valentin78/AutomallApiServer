@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using AutomallApiServer.Core.Contexts.ResultModels;
 using AutomallApiServer.Models.Cube;
+
 // ReSharper disable InconsistentNaming
 
 namespace AutomallApiServer.Core.Contexts
@@ -18,13 +19,11 @@ namespace AutomallApiServer.Core.Contexts
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Conventions.Add(new FunctionsConvention<CubeContext>("dbo"));
         }
 
         public virtual ps_GetRingGroupByCallerIDResult GetRingGroupByCallerId(string callerId)
         {
-
-            var sqlQuery = "ps_GetRingGroupByCallerID @CallerID";
-
             object[] sqlParams =
             {
                 new SqlParameter
@@ -37,9 +36,7 @@ namespace AutomallApiServer.Core.Contexts
                 //new SqlParameter { ParameterName = "@CallerName",  Value =-99, Direction = System.Data.ParameterDirection.Output },
             };
 
-            var result = Database.SqlQuery<ps_GetRingGroupByCallerIDResult>(sqlQuery, sqlParams).SingleOrDefault();
-            return result;
-
+            return Database.SqlQuery<ps_GetRingGroupByCallerIDResult>("ps_GetRingGroupByCallerID @CallerID", sqlParams).SingleOrDefault();
         }
 
         public virtual IList<vsWareInfo> vsspGetWaresList(int? groupId, int? markId, int? modelId, int? modifId, int? kagId, string prodIds, int? priceFrom, int? priceTo, string properties, string culture,
@@ -84,6 +81,19 @@ namespace AutomallApiServer.Core.Contexts
             maxPrice = (int?)(maxPriceParameter.Value == DBNull.Value ? null : maxPriceParameter.Value);
             brandIds = (string)(prodIdsParameter.Value == DBNull.Value ? null : prodIdsParameter.Value);
             return result;
+        }
+
+
+        public virtual IList<vsClientsListItem> vsspGetClientsInfo(string clientIds, string culture)
+        {
+
+            object[] sqlParams =
+            {
+                new SqlParameter("@ClientIds", clientIds),
+                new SqlParameter("@Culture", (object) culture ?? DBNull.Value),
+            };
+
+            return Database.SqlQuery<vsClientsListItem>("vsspGetClientsInfo @ClientIds, @Culture", sqlParams).ToList();
         }
     }
 }

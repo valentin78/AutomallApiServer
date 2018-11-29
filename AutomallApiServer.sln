@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomallApiServer", "Automa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APITest", "APITest\APITest.csproj", "{6AE59B80-A007-4A64-9C1A-76AE1BD9F54B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValmiStore.Model.Cube", "..\WebmallGit\ValmiStore.Model.Cube\ValmiStore.Model.Cube.csproj", "{2B83D3FC-B291-4356-BD05-7F69C5F878AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValmiStore.Model", "..\WebmallGit\ValmiStore.Model\ValmiStore.Model.csproj", "{B8938641-3D4C-466A-845D-7D96A4073720}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{6AE59B80-A007-4A64-9C1A-76AE1BD9F54B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AE59B80-A007-4A64-9C1A-76AE1BD9F54B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AE59B80-A007-4A64-9C1A-76AE1BD9F54B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B83D3FC-B291-4356-BD05-7F69C5F878AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B83D3FC-B291-4356-BD05-7F69C5F878AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B83D3FC-B291-4356-BD05-7F69C5F878AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B83D3FC-B291-4356-BD05-7F69C5F878AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8938641-3D4C-466A-845D-7D96A4073720}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8938641-3D4C-466A-845D-7D96A4073720}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8938641-3D4C-466A-845D-7D96A4073720}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8938641-3D4C-466A-845D-7D96A4073720}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
